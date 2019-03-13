@@ -1,0 +1,20 @@
+fields:
+  instagram_id:
+    span: left
+    label: Instagram Business ID
+
+  access_token:
+    span: left
+    label: Access Token (Facebook)
+
+  facebook_page_id:
+    span: left
+    label: Facebook page ID
+
+  app_id:
+    span: left
+    label: Facebook app ID
+
+  app_secret:
+    span: left
+    label: Facebook app Secret
