@@ -7,9 +7,9 @@ fields:
     span: left
     label: Access Token (Facebook)
 
-  facebook_page_id:
-    span: left
-    label: Facebook page ID
+  # facebook_page_id:
+  #   span: left
+  #   label: Facebook page ID
 
   app_id:
     span: left

@@ -69,27 +69,29 @@ class UserFeed extends ComponentBase
             ]);
 
             try {
-                    // Get the \Facebook\GraphNodes\GraphUser object for the current user.
-                    // If you provided a 'default_access_token', the '{access-token}' is optional.
-                    $response = $fb->get('/'.$settings->instagram_id.'/media');
+                $response = $fb->get('/'.$settings->instagram_id.'/media?fields=media_url,permalink,thumbnail_url&limit='.$this->property('limit', 10));
             } catch(\Facebook\Exceptions\FacebookResponseException $e) {
-                    // When Graph returns an error
-                    echo 'Graph returned an error: ' . $e->getMessage();
-                    exit;
+                echo 'Graph returned an error: ' . $e->getMessage();
+                exit;
             } catch(\Facebook\Exceptions\FacebookSDKException $e) {
-                    // When validation fails or other local issues
-                    echo 'Facebook SDK returned an error: ' . $e->getMessage();
-                    exit;
+                echo 'Facebook SDK returned an error: ' . $e->getMessage();
+                exit;
             }
 
-            var_dump($response);
-            $me = $response->getGraphUser();
-            echo 'Logged in as ' . $me->getName();
+            // $graphURL = "https://graph.facebook.com/v3.2";
+            
+            // echo $graphURL.'/oauth/access_token?grant_type=fb_exchange_token&client_id='.$settings->app_id.'&client_secret='.$settings->app_secret.'&fb_exchange_token='.$settings->access_token;
+            // echo '<br/><br/>';
+            // echo $graphURL.'/me?access_token=';
+            // echo '<br/><br/>';
+            // echo $graphURL.'/#{id}/accounts?access_token=#{access_token}';
 
-            // $this->media = $this->page['media'] = $api->getUserByUsername($this->property('user_name'))->getMedia(array('count' => $this->property('limit', 10)));
+            $responseDecodedBody = $response->getDecodedBody();
 
-            // $expires_at = Carbon::now()->addMinutes($this->property('cache'));
-            // Cache::put($key, $this->media, $expires_at);
+            $this->media = $responseDecodedBody['data'];
+
+            $expires_at = Carbon::now()->addMinutes($this->property('cache'));
+            Cache::put($key, $this->media, $expires_at);
         }
     }
 }

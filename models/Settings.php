@@ -18,5 +18,7 @@ class Settings extends Model
     public $rules = [
         'instagram_id'             => 'required',
         'access_token'             => 'required',
+        'app_id'             => 'required',
+        'app_secret'             => 'required',
     ];
 }
